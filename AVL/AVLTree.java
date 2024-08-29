@@ -11,17 +11,14 @@ class AVLTree {
 
     private Node raiz;
 
-    // Função para obter a altura de um nó
     int altura(Node N) {
         return (N == null) ? 0 : N.altura;
     }
 
-    // Função para obter o fator de balanceamento de um nó
     int obterFatorBalanceamento(Node N) {
         return (N == null) ? 0 : altura(N.esquerda) - altura(N.direita);
     }
 
-    // Rotação à direita
     Node rotacaoDireita(Node y) {
         Node x = y.esquerda;
         Node T2 = x.direita;
@@ -35,7 +32,6 @@ class AVLTree {
         return x;
     }
 
-    // Rotação à esquerda
     Node rotacaoEsquerda(Node x) {
         Node y = x.direita;
         Node T2 = y.esquerda;
@@ -49,7 +45,6 @@ class AVLTree {
         return y;
     }
 
-    // Inserir um valor na árvore
     Node inserir(Node no, int chave) {
         if (no == null)
             return new Node(chave);
@@ -64,7 +59,6 @@ class AVLTree {
         no.altura = 1 + Math.max(altura(no.esquerda), altura(no.direita));
         int balanceamento = obterFatorBalanceamento(no);
 
-        // Verifica as rotações necessárias
         if (balanceamento > 1 && chave < no.esquerda.chave)
             return rotacaoDireita(no);
         if (balanceamento < -1 && chave > no.direita.chave)
@@ -81,7 +75,6 @@ class AVLTree {
         return no;
     }
 
-    // Função para encontrar o menor valor de uma árvore
     Node valorMinimoNo(Node no) {
         Node atual = no;
 
@@ -91,7 +84,6 @@ class AVLTree {
         return atual;
     }
 
-    // Remover um nó da árvore
     Node deletarNo(Node raiz, int chave) {
         if (raiz == null)
             return raiz;
@@ -126,7 +118,6 @@ class AVLTree {
         raiz.altura = Math.max(altura(raiz.esquerda), altura(raiz.direita)) + 1;
         int balanceamento = obterFatorBalanceamento(raiz);
 
-        // Verifica as rotações necessárias
         if (balanceamento > 1 && obterFatorBalanceamento(raiz.esquerda) >= 0)
             return rotacaoDireita(raiz);
         if (balanceamento > 1 && obterFatorBalanceamento(raiz.esquerda) < 0) {
@@ -143,17 +134,14 @@ class AVLTree {
         return raiz;
     }
 
-    // Função para inserir um valor
     void inserir(int chave) {
         raiz = inserir(raiz, chave);
     }
 
-    // Função para deletar um valor
     void deletar(int chave) {
         raiz = deletarNo(raiz, chave);
     }
 
-    // Função para imprimir o fator de balanceamento de cada nó
     void imprimirFatoresBalanceamento(Node no) {
         if (no != null) {
             imprimirFatoresBalanceamento(no.esquerda);
